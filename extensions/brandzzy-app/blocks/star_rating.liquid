@@ -1,0 +1,58 @@
+<!-- brandzzy-app.liquid -->
+<div style="text-align: left; color: green;">
+  Wellcome to Brandzzy Brand
+</div>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('giftwrap', () => ({
+        init(){
+          fetch(this.appUrl + "/script")
+              .then(response => response.json())
+              .then(result => {
+                  if(result.data.length > 0){
+                    this.open = true;
+                  }
+              })
+              .catch(error => console.log('error', error));
+        },
+        open: false,
+        appUrl: "https://freeze-catherine-activity-payment.trycloudflare.com/",
+
+        checkState(){
+            var formdata = new FormData();
+            formdata.append("_action", "GET");
+
+            var requestOptions = {
+              method: 'GET',
+              body: formdata,
+              redirect: 'follow'
+            };
+
+            fetch(this.appUrl + "/script", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if(result.open){
+                      this.open = false;
+                    } else {
+                      this.open = true;
+                    }
+                })
+                .catch(error => console.log('error', error));
+
+            location.reload();
+        }
+    }))
+  })
+</script>
+
+{% schema %}
+{
+  "name": "Brandzzy-app",
+  "target": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product", "autofill": true },
+    { "type": "color", "id": "colour", "label": "Star Colour", "default": "#ff0000" }
+  ]
+}
+{% endschema %}
