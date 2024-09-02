@@ -11,12 +11,11 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Loader function (for completeness)
+
 export const loader = async () => {
   return json({ message: "This route handles POST requests." });
 };
 
-// Action function (for handling form submission)
 export const action = async ({ request }) => {
   const form = new formidable.IncomingForm();
   form.uploadDir = uploadDir;

@@ -42,12 +42,10 @@ const HeaderPage = () => {
       const result = await response.json();
       if (response.ok) {
         console.log("Saved data:", result);
-        // Handle success (e.g., clear form, show success message, etc.)
       } else {
         setErrorMessage(result.error || "Something went wrong");
       }
     } catch (error) {
-      console.error("Network error:", error);
       setErrorMessage("Network error");
     }
   };
